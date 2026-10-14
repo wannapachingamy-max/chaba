@@ -172,10 +172,6 @@
         ::-webkit-scrollbar-thumb { background: #FDA8BF; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #FF5C89; }
         
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #FDA8BF; border-radius: 10px; }
-        
         .star-rating i { cursor: pointer; color: #FFDBDB; transition: color 0.2s, transform 0.2s; }
         .star-rating i.active { color: #FF5C89; } 
         .star-rating i:hover { transform: scale(1.2); }
@@ -203,18 +199,17 @@
 
         .floating-line { position: fixed; bottom: 20px; right: 20px; z-index: 40; }
         
-        /* ✨ คำโปรยหมวดหมู่ให้ตัดกับพื้นหลัง ไม่กลืนกัน ✨ */
         .category-subtitle {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             border: 2px solid #FFDBDB;
             color: #D13869;
-            padding: 10px 16px;
-            border-radius: 18px;
-            font-size: 0.85rem;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(253, 195, 209, 0.4);
-            line-height: 1.5;
+            box-shadow: 0 6px 20px rgba(253, 195, 209, 0.5);
+            line-height: 1.6;
         }
 
         .pkg-card {
@@ -333,6 +328,7 @@
             </button>
         </div>
 
+        <!-- 🛒 สินค้าแนะนำ / โปรโมชั่น (แก้ไขได้จากหลังบ้าน) -->
         <div class="kawaii-panel !border-strawberry/30 !bg-white/80 fade-in" style="animation-delay: 0.1s;">
             <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-peach to-strawberry text-white px-6 py-1.5 rounded-full font-bold text-sm shadow-md border-2 border-white z-20 flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-crown text-lemon"></i> สินค้าแนะนำ / โปรโมชั่น 🛒
@@ -341,12 +337,15 @@
                 <div class="bg-white/60 p-4 rounded-2xl border border-blush shadow-sm mb-4 space-y-3">
                     <div>
                         <p class="font-bold text-strawberry mb-1"><i class="fa-solid fa-star text-peach"></i> สินค้าแนะนำ</p>
-                        <p class="text-sm text-arcavia pl-5 font-medium">ෆ เมล~</p>
-                        <p class="text-sm text-arcavia pl-5 font-medium">ෆ แพ็คเติมเกม FF & ROV และเกมอื่นๆอีก 84เกม & แอพพรีี่ยม~</p>
+                        <div id="display-recommended-text" class="text-sm text-arcavia pl-5 font-medium whitespace-pre-line">
+                            ෆ เมล~<br>ෆ แพ็คเติมเกม FF & ROV และเกมอื่นๆอีก 84เกม & แอพพรีี่ยม~
+                        </div>
                     </div>
                     <div class="pt-2 border-t border-blush/50">
                         <p class="font-bold text-strawberry mb-1"><i class="fa-solid fa-bullhorn text-peach"></i> โปรโมชั่น</p>
-                        <p class="text-sm text-thimble pl-5 font-medium">ෆ ตอนนี้ยังไม่มีโปรโมชั่นนะคะ ถ้ามีเมื่อไหร่ยัยชบาจะแจ้งทันทีผ่านหน้าเว็ปน้า~~ ෆ</p>
+                        <div id="display-promotion-text" class="text-sm text-thimble pl-5 font-medium whitespace-pre-line">
+                            ෆ ตอนนี้ยังไม่มีโปรโมชั่นนะคะ ถ้ามีเมื่อไหร่ยัยชบาจะแจ้งทันทีผ่านหน้าเว็ปน้า~~ ෆ
+                        </div>
                     </div>
                 </div>
             </div>
@@ -377,12 +376,13 @@
             </div>
         </div>
 
+        <!-- 🥐 วิธีสั่งซื้อกับยัยชบา (แก้ไขได้จากหลังบ้าน) -->
         <div class="kawaii-panel panel-purple fade-in mt-8" style="animation-delay: 0.4s;">
             <div class="k-sparkle">✨</div>
             <div class="relative z-10">
                 <h3 class="font-bold text-lg text-arcavia mb-4 text-center">🥐 วิธีสั่งซื้อกับยัยชบา 🥐</h3>
                 
-                <div class="space-y-3">
+                <div id="display-howto-text" class="space-y-3">
                     <div class="flex items-start gap-3 bg-white/60 p-3 rounded-2xl border border-lavender">
                         <div class="w-8 h-8 rounded-full bg-lavender text-purple-700 font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm">1</div>
                         <p class="text-sm font-medium text-arcavia leading-relaxed">แจ้งสินค้าที่ลูกค้าสนใจ</p>
@@ -633,83 +633,18 @@
         </div>
     </main>
 
-    <!-- 🍓 หน้าหลังบ้าน (Admin View) 🍓 -->
+    <!-- 🍓 หน้าหลังบ้าน (Admin View) - จัดสัดส่วนใหม่ให้เป็นระเบียบและใช้งานง่าย 🍓 -->
     <main id="view-admin" class="view-section max-w-container p-4 space-y-6 pt-6 hidden relative z-10">
         <div class="flex items-center justify-between bg-white/80 backdrop-blur px-5 py-3 rounded-2xl border border-precious shadow-sm">
             <h2 class="text-xl sm:text-2xl font-bold text-arcavia flex items-center gap-2"><i class="fa-solid fa-lock text-precious"></i> หลังบ้าน</h2>
             <button onclick="adminLogout(this)" class="text-sm text-strawberry font-bold bg-blush px-3 py-1.5 rounded-lg border border-precious hover:bg-white transition-colors">ออก <i class="fa-solid fa-sign-out-alt"></i></button>
         </div>
-        
-        <div id="admin-db-warning" class="hidden bg-arcavia/10 border-2 border-arcavia text-arcavia rounded-2xl p-4 font-medium text-sm fade-in">
-            <h4 class="font-bold text-base mb-2"><i class="fa-solid fa-triangle-exclamation"></i> ยังไม่มีตารางเรทราคาสินค้า</h4>
-            <p class="mb-2">หากต้องการเพิ่มสินค้าได้เอง กรุณานำคำสั่ง SQL ด้านล่างไปรันในเมนู <strong>SQL Editor</strong> ของ Supabase ค่ะ</p>
-            <div class="bg-white p-3 rounded-xl border border-arcavia/50 text-xs overflow-x-auto relative">
-                <code>
-                    ALTER TABLE shop_products ADD COLUMN rates_detail TEXT;
-                </code>
-            </div>
-        </div>
-
-        <div class="kawaii-panel space-y-4 fade-in">
-            <h3 class="font-bold text-base text-arcavia flex items-center gap-2"><i class="fa-solid fa-sliders text-strawberry"></i> ตั้งค่าภาพรวมระบบ</h3>
-            <div class="grid grid-cols-1 gap-4 items-center relative z-10">
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush">
-                    <label class="block font-bold text-sm text-arcavia mb-2">คำโปรยหน้าร้าน (Tagline)</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="admin-shop-tagline" class="flex-1 bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium">
-                        <button onclick="adminUpdateTagline(this)" class="bg-peach text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึก</button>
-                    </div>
-                </div>
-
-                <!-- 🖼️ อัปโหลดแบนเนอร์หน้าร้าน (รองรับภาพ/GIF) -->
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="font-bold text-sm text-arcavia">แบนเนอร์หน้าร้าน (รองรับภาพ/GIF)</label>
-                        <button type="button" id="btn-remove-store-banner" onclick="removeStorefrontBanner(this)" class="hidden text-xs font-bold text-arcavia bg-white px-3 py-1 rounded-lg border border-precious shadow-sm">ลบรูป</button>
-                    </div>
-                    <div id="store-banner-preview-box" class="mb-3 hidden text-center">
-                        <img id="store-banner-preview-img" src="" class="max-h-36 mx-auto rounded-2xl border border-precious object-contain shadow-sm">
-                    </div>
-                    <label class="cursor-pointer block bg-strawberry text-white py-2 rounded-xl text-xs font-bold text-center hover:bg-arcavia transition-colors shadow-sm interactive-btn">
-                        <i class="fa-solid fa-file-image"></i> เลือกรูป/GIF แบนเนอร์หน้าร้าน
-                        <input type="file" id="store-banner-upload" accept="image/*,.gif" class="hidden" onchange="handleStorefrontBannerUpload(event)">
-                    </label>
-                </div>
-
-                <!-- 🖼️ อัปโหลดแบนเนอร์หน้า Plus One (รองรับภาพ/GIF) -->
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="font-bold text-sm text-arcavia">แบนเนอร์หน้า Plus One (รองรับภาพ/GIF)</label>
-                        <button type="button" id="btn-remove-plusone-banner" onclick="removePlusOneBanner(this)" class="hidden text-xs font-bold text-arcavia bg-white px-3 py-1 rounded-lg border border-precious shadow-sm">ลบรูป</button>
-                    </div>
-                    <div id="plusone-banner-preview-box" class="mb-3 hidden text-center">
-                        <img id="plusone-banner-preview-img" src="" class="max-h-36 mx-auto rounded-2xl border border-precious object-contain shadow-sm">
-                    </div>
-                    <label class="cursor-pointer block bg-strawberry text-white py-2 rounded-xl text-xs font-bold text-center hover:bg-arcavia transition-colors shadow-sm interactive-btn">
-                        <i class="fa-solid fa-file-image"></i> เลือกรูป/GIF แบนเนอร์ Plus One
-                        <input type="file" id="plusone-banner-upload" accept="image/*,.gif" class="hidden" onchange="handlePlusOneBannerUpload(event)">
-                    </label>
-                </div>
-
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full border border-precious overflow-hidden relative bg-white">
-                            <img id="admin-logo-img" src="" class="absolute inset-0 w-full h-full object-cover">
-                        </div>
-                        <div><div class="font-bold text-sm text-arcavia">โลโก้ร้าน</div></div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="document.getElementById('shop-logo-upload').click()" class="bg-strawberry text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm interactive-btn">เปลี่ยน</button>
-                    </div>
-                    <input type="file" id="shop-logo-upload" accept="image/*,.gif" class="hidden" onchange="handleShopLogoUpload(event)">
-                </div>
-            </div>
-        </div>
 
         <div class="flex gap-2 mb-4 fade-in flex-wrap">
-            <button id="btn-admin-tab-queue" onclick="switchAdminSubTab('queue')" class="flex-1 min-w-[100px] px-3 py-2.5 rounded-xl text-sm font-bold bg-strawberry text-white shadow-md transition-all">คิว</button>
-            <button id="btn-admin-tab-review" onclick="switchAdminSubTab('review')" class="flex-1 min-w-[100px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all">รีวิว</button>
-            <button id="btn-admin-tab-product" onclick="switchAdminSubTab('product')" class="flex-1 min-w-[100px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all">เรทราคา</button>
+            <button id="btn-admin-tab-settings" onclick="switchAdminSubTab('settings')" class="flex-1 min-w-[90px] px-3 py-2.5 rounded-xl text-sm font-bold bg-strawberry text-white shadow-md transition-all">ตั้งค่าหน้าเว็บ</button>
+            <button id="btn-admin-tab-queue" onclick="switchAdminSubTab('queue')" class="flex-1 min-w-[90px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all">จัดการคิว</button>
+            <button id="btn-admin-tab-review" onclick="switchAdminSubTab('review')" class="flex-1 min-w-[90px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all">รีวิว</button>
+            <button id="btn-admin-tab-product" onclick="switchAdminSubTab('product')" class="flex-1 min-w-[90px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all">เรทราคา</button>
         </div>
 
         <div class="grid grid-cols-2 gap-4 fade-in">
@@ -717,7 +652,74 @@
             <div class="bg-white/90 p-4 rounded-3xl border-4 border-blush text-center"><div class="text-peach font-bold">รีวิวทั้งหมด</div><div class="text-3xl font-bold text-arcavia" id="admin-stat-reviews">...</div></div>
         </div>
 
-        <div id="admin-tab-queue" class="admin-sub-section space-y-6 block">
+        <!-- ⚙️ แทร็บที่ 1: ตั้งค่าหน้าเว็บ (ข้อความ, แบนเนอร์, โลโก้) -->
+        <div id="admin-tab-settings" class="admin-sub-section space-y-6 block">
+            <div class="kawaii-panel space-y-5 fade-in">
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2"><i class="fa-solid fa-sliders text-strawberry"></i> 1. ตั้งค่าข้อความต้อนรับ & คำโปรย</h3>
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3">
+                    <div>
+                        <label class="block font-bold text-sm text-arcavia mb-1">คำโปรยหน้าร้าน (Tagline)</label>
+                        <input type="text" id="admin-shop-tagline" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium">
+                    </div>
+                    <button onclick="adminUpdateTagline(this)" class="bg-peach text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกคำโปรย</button>
+                </div>
+
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2"><i class="fa-solid fa-star text-strawberry"></i> 2. ตั้งค่าสินค้าแนะนำ & โปรโมชั่น</h3>
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3">
+                    <div>
+                        <label class="block font-bold text-sm text-strawberry mb-1">สินค้าแนะนำ (พิมพ์ข้อความแต่ละบรรทัด)</label>
+                        <textarea id="admin-recommended-text" rows="3" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="เช่น ෆ เมล~&#10;ෆ แพ็คเติมเกม FF & ROV"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-sm text-strawberry mb-1">โปรโมชั่นร้าน</label>
+                        <textarea id="admin-promotion-text" rows="3" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="เช่น ෆ ตอนนี้ยังไม่มีโปรโมชั่นนะคะ..."></textarea>
+                    </div>
+                    <button onclick="adminUpdatePromoAndRec(this)" class="bg-strawberry text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกสินค้าแนะนำ & โปรโมชั่น</button>
+                </div>
+
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2"><i class="fa-solid fa-bag-shopping text-strawberry"></i> 3. ตั้งค่าวิธีการสั่งซื้อ</h3>
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3">
+                    <div>
+                        <label class="block font-bold text-sm text-arcavia mb-1">ขั้นตอนวิธีสั่งซื้อ (ข้อความ)</label>
+                        <textarea id="admin-howto-text" rows="5" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="ระบุขั้นตอนการสั่งซื้อ..."></textarea>
+                    </div>
+                    <button onclick="adminUpdateHowTo(this)" class="bg-peach text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกวิธีสั่งซื้อ</button>
+                </div>
+
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2"><i class="fa-solid fa-image text-strawberry"></i> 4. รูปภาพ / แบนเนอร์ / โลโก้</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-xs text-arcavia">แบนเนอร์หน้าร้าน (รองรับภาพ/GIF)</label>
+                            <button type="button" id="btn-remove-store-banner" onclick="removeStorefrontBanner(this)" class="hidden text-[10px] font-bold text-arcavia bg-white px-2 py-0.5 rounded border border-precious">ลบ</button>
+                        </div>
+                        <div id="store-banner-preview-box" class="mb-2 hidden text-center"><img id="store-banner-preview-img" src="" class="max-h-24 mx-auto rounded-xl border object-contain"></div>
+                        <label class="cursor-pointer block bg-strawberry text-white py-2 rounded-xl text-xs font-bold text-center shadow-sm">เลือกรูป/GIF <input type="file" accept="image/*,.gif" class="hidden" onchange="handleStorefrontBannerUpload(event)"></label>
+                    </div>
+
+                    <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-xs text-arcavia">แบนเนอร์ Plus One (รองรับภาพ/GIF)</label>
+                            <button type="button" id="btn-remove-plusone-banner" onclick="removePlusOneBanner(this)" class="hidden text-[10px] font-bold text-arcavia bg-white px-2 py-0.5 rounded border border-precious">ลบ</button>
+                        </div>
+                        <div id="plusone-banner-preview-box" class="mb-2 hidden text-center"><img id="plusone-banner-preview-img" src="" class="max-h-24 mx-auto rounded-xl border object-contain"></div>
+                        <label class="cursor-pointer block bg-strawberry text-white py-2 rounded-xl text-xs font-bold text-center shadow-sm">เลือกรูป/GIF <input type="file" accept="image/*,.gif" class="hidden" onchange="handlePlusOneBannerUpload(event)"></label>
+                    </div>
+
+                    <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush sm:col-span-2 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full border overflow-hidden relative bg-white"><img id="admin-logo-img" src="" class="absolute inset-0 w-full h-full object-cover"></div>
+                            <div class="font-bold text-sm text-arcavia">โลโก้ร้าน (หัวใจ)</div>
+                        </div>
+                        <button onclick="document.getElementById('shop-logo-upload').click()" class="bg-strawberry text-white px-3 py-1.5 rounded-xl text-xs font-bold">เปลี่ยนโลโก้</button>
+                        <input type="file" id="shop-logo-upload" accept="image/*,.gif" class="hidden" onchange="handleShopLogoUpload(event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📋 แท็บที่ 2: จัดการคิว -->
+        <div id="admin-tab-queue" class="admin-sub-section space-y-6 hidden">
             <div class="kawaii-panel fade-in">
                 <h3 class="font-bold text-lg mb-4 text-arcavia">จัดการคิว</h3>
                 <div class="bg-white/80 rounded-2xl p-4 mb-5 flex flex-wrap items-end gap-3 border border-blush">
@@ -743,6 +745,7 @@
             </div>
         </div>
 
+        <!-- 💬 แท็บที่ 3: จัดการรีวิว -->
         <div id="admin-tab-review" class="admin-sub-section space-y-6 hidden">
             <div class="kawaii-panel fade-in">
                 <h3 class="font-bold text-lg mb-4 text-arcavia">จัดการรีวิว</h3>
@@ -750,6 +753,7 @@
             </div>
         </div>
 
+        <!-- 🎮 แท็บที่ 4: จัดการเรทราคา -->
         <div id="admin-tab-product" class="admin-sub-section space-y-6 hidden">
             <div class="kawaii-panel fade-in">
                 <h3 class="font-bold text-lg mb-4 text-arcavia">จัดการสินค้าและเรทราคา</h3>
@@ -832,6 +836,9 @@
             shopLogo: 'https://placehold.co/400x320/FFDBDB/D13869?text=Chaba+Cake',
             storefrontBanner: null,
             plusoneBanner: null,
+            recommendedText: 'ෆ เมล~\nෆ แพ็คเติมเกม FF & ROV และเกมอื่นๆอีก 84เกม & แอพพรีี่ยม~',
+            promotionText: 'ෆ ตอนนี้ยังไม่มีโปรโมชั่นนะคะ ถ้ามีเมื่อไหร่ยัยชบาจะแจ้งทันทีผ่านหน้าเว็ปน้า~~ ෆ',
+            howtoText: '',
             currentQueue: '000',
             queues: [],
             plusOneCount: 0,
@@ -839,9 +846,6 @@
             products: [],
             hasProductsTable: true,
             compressedImgBase64: null,
-            welcomeAdminImgUrl: null,
-            queueAdminImgUrl: null,
-            creditAdminImgUrl: null,
             currentProduct: null,
             selectedPackage: null
         };
@@ -938,9 +942,9 @@
                     if(settings.shop_logo) state.shopLogo = settings.shop_logo;
                     if(settings.storefront_banner) state.storefrontBanner = settings.storefront_banner;
                     if(settings.plusone_banner) state.plusoneBanner = settings.plusone_banner;
-                    state.welcomeAdminImgUrl = settings.welcome_img;
-                    state.queueAdminImgUrl = settings.queue_img;
-                    state.creditAdminImgUrl = settings.credit_img;
+                    if(settings.recommended_text) state.recommendedText = settings.recommended_text;
+                    if(settings.promotion_text) state.promotionText = settings.promotion_text;
+                    if(settings.howto_text) state.howtoText = settings.howto_text;
                 }
 
                 try {
@@ -949,7 +953,6 @@
                     state.products = prods && prods.length > 0 ? prods : [];
                     state.hasProductsTable = true;
                 } catch(err) {
-                    console.log("ไม่มีตาราง shop_products หรือเกิดข้อผิดพลาด ใช้ Default", err);
                     state.hasProductsTable = false;
                     state.products = defaultProducts;
                 }
@@ -969,9 +972,20 @@
         function updateAllViews() {
             document.getElementById('storefront-tagline').textContent = state.shopTagline;
             document.getElementById('storefront-logo-img').setAttribute('href', state.shopLogo);
-            if(document.getElementById('admin-shop-tagline')) document.getElementById('admin-shop-tagline').value = state.shopTagline;
+            document.getElementById('display-recommended-text').innerHTML = escapeHtml(state.recommendedText).replace(/\n/g, '<br>');
+            document.getElementById('display-promotion-text').innerHTML = escapeHtml(state.promotionText).replace(/\n/g, '<br>');
             
-            // แสดง/ซ่อน แบนเนอร์หน้าร้าน (รองรับ GIF)
+            if(state.howtoText && state.howtoText.trim() !== '') {
+                document.getElementById('display-howto-text').innerHTML = escapeHtml(state.howtoText).replace(/\n/g, '<br>');
+            }
+
+            if(document.getElementById('admin-shop-tagline')) {
+                document.getElementById('admin-shop-tagline').value = state.shopTagline;
+                document.getElementById('admin-recommended-text').value = state.recommendedText;
+                document.getElementById('admin-promotion-text').value = state.promotionText;
+                document.getElementById('admin-howto-text').value = state.howtoText;
+            }
+            
             const storeBannerBox = document.getElementById('storefront-banner-container');
             const storeBannerImg = document.getElementById('storefront-banner-img');
             if(state.storefrontBanner) {
@@ -981,7 +995,6 @@
                 storeBannerBox.classList.add('hidden');
             }
 
-            // แสดง/ซ่อน แบนเนอร์ Plus One (รองรับ GIF)
             const plusBannerBox = document.getElementById('plusone-banner-container');
             const plusBannerImg = document.getElementById('plusone-banner-img');
             if(state.plusoneBanner) {
@@ -1021,9 +1034,6 @@
                     document.getElementById('plusone-banner-preview-box').classList.remove('hidden');
                     document.getElementById('btn-remove-plusone-banner').classList.remove('hidden');
                 }
-
-                if(!state.hasProductsTable) document.getElementById('admin-db-warning').classList.remove('hidden');
-                else document.getElementById('admin-db-warning').classList.add('hidden');
 
                 renderAdminQueues();
                 renderAdminReviews();
@@ -1371,16 +1381,52 @@
             document.querySelectorAll('.admin-sub-section').forEach(el => el.classList.add('hidden'));
             document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
 
-            const btns = ['queue', 'review', 'product'];
+            const btns = ['settings', 'queue', 'review', 'product'];
             btns.forEach(b => {
                 const btn = document.getElementById(`btn-admin-tab-${b}`);
-                if(b === tab) btn.className = 'flex-1 min-w-[100px] px-3 py-2.5 rounded-xl text-sm font-bold bg-strawberry text-white shadow-md transition-all';
-                else btn.className = 'flex-1 min-w-[100px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all';
+                if(b === tab) btn.className = 'flex-1 min-w-[90px] px-3 py-2.5 rounded-xl text-sm font-bold bg-strawberry text-white shadow-md transition-all';
+                else btn.className = 'flex-1 min-w-[90px] px-3 py-2.5 rounded-xl text-sm font-bold bg-white text-strawberry border-2 border-precious hover:bg-blush transition-all';
             });
         }
 
         async function updateShopSetting(column, value) { await supaClient.from('shop_settings').update({ [column]: value }).eq('id', 1); }
-        async function adminUpdateTagline(btn) { const input = document.getElementById('admin-shop-tagline').value.trim(); if(!input) return showToast('กรุณากรอกคำโปรย', 'error'); btn.disabled = true; try { await updateShopSetting('shop_tagline', input); state.shopTagline = input; updateAllViews(); showToast('อัปเดตเรียบร้อย', 'success'); } catch(e) { showToast('อัปเดตไม่สำเร็จ', 'error'); } finally { btn.disabled = false; } }
+        
+        async function adminUpdateTagline(btn) { 
+            const input = document.getElementById('admin-shop-tagline').value.trim(); 
+            if(!input) return showToast('กรุณากรอกคำโปรย', 'error'); 
+            btn.disabled = true; 
+            try { 
+                await updateShopSetting('shop_tagline', input); 
+                state.shopTagline = input; 
+                updateAllViews(); 
+                showToast('อัปเดตคำโปรยเรียบร้อย', 'success'); 
+            } catch(e) { showToast('อัปเดตไม่สำเร็จ', 'error'); } finally { btn.disabled = false; } 
+        }
+
+        async function adminUpdatePromoAndRec(btn) {
+            const rec = document.getElementById('admin-recommended-text').value.trim();
+            const promo = document.getElementById('admin-promotion-text').value.trim();
+            btn.disabled = true;
+            try {
+                await supaClient.from('shop_settings').update({ recommended_text: rec, promotion_text: promo }).eq('id', 1);
+                state.recommendedText = rec;
+                state.promotionText = promo;
+                updateAllViews();
+                showToast('บันทึกสินค้าแนะนำและโปรโมชั่นสำเร็จ', 'success');
+            } catch(e) { showToast('บันทึกไม่สำเร็จ', 'error'); } finally { btn.disabled = false; }
+        }
+
+        async function adminUpdateHowTo(btn) {
+            const howto = document.getElementById('admin-howto-text').value.trim();
+            btn.disabled = true;
+            try {
+                await supaClient.from('shop_settings').update({ howto_text: howto }).eq('id', 1);
+                state.howtoText = howto;
+                updateAllViews();
+                showToast('บันทึกวิธีสั่งซื้อสำเร็จ', 'success');
+            } catch(e) { showToast('บันทึกไม่สำเร็จ', 'error'); } finally { btn.disabled = false; }
+        }
+
         async function handleShopLogoUpload(event) { const file = event.target.files[0]; if (!file) return; showToast('กำลังอัปโหลด...', 'info'); const url = await uploadImageToStorage(file, 'logos'); await updateShopSetting('shop_logo', url); state.shopLogo = url; updateAllViews(); showToast('เปลี่ยนโลโก้เรียบร้อย', 'success'); }
         
         async function handleStorefrontBannerUpload(event) {
@@ -1399,7 +1445,6 @@
             try {
                 await updateShopSetting('storefront_banner', null);
                 state.storefrontBanner = null;
-                document.getElementById('store-banner-upload').value = '';
                 document.getElementById('store-banner-preview-box').classList.add('hidden');
                 document.getElementById('btn-remove-store-banner').classList.add('hidden');
                 updateAllViews();
@@ -1423,7 +1468,6 @@
             try {
                 await updateShopSetting('plusone_banner', null);
                 state.plusoneBanner = null;
-                document.getElementById('plusone-banner-upload').value = '';
                 document.getElementById('plusone-banner-preview-box').classList.add('hidden');
                 document.getElementById('btn-remove-plusone-banner').classList.add('hidden');
                 updateAllViews();
