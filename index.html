@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chaba Shortcake 🍓</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
@@ -21,7 +22,7 @@
                         babyblue: '#CDE4FE',    
                         lavender: '#E8DFF5',    
                         lemon: '#FEF0D4',
-                        line: '#00B900',        // Line Green
+                        line: '#00D13B',        // สว่างขึ้น ซอฟต์ลง
                     },
                     boxShadow: {
                         'cute': '0 8px 25px rgba(253, 195, 209, 0.6)',
@@ -102,6 +103,7 @@
             text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0px -2px 0 #fff, 0px 2px 0 #fff, -2px 0px 0 #fff, 2px 0px 0 #fff;
         }
 
+        /* 🎀 KAWAII PANEL FIX 🎀 */
         .kawaii-panel {
             position: relative;
             background-color: rgba(255, 255, 255, 0.95); 
@@ -115,6 +117,7 @@
             z-index: 10;
             width: 100%;
             box-sizing: border-box;
+            overflow: visible !important; /* บังคับทะลุกรอบ */
         }
         .kawaii-panel::after {
             content: "";
@@ -123,7 +126,7 @@
             border-radius: 20px;
             border: 3px dashed #FDA8BF;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1; /* ให้อยู่ใต้คอนเทนต์ทั้งหมด */
         }
         
         .panel-blue { border-color: #CDE4FE; box-shadow: 0 10px 30px rgba(205, 228, 254, 0.5); }
@@ -131,10 +134,17 @@
         .panel-purple { border-color: #E8DFF5; box-shadow: 0 10px 30px rgba(232, 223, 245, 0.5); }
         .panel-purple::after { border-color: #D3C4ED; }
 
-        .k-bow { position: absolute; top: -35px; left: -30px; font-size: 4rem; z-index: 20; transform: rotate(-15deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
-        .k-heart { position: absolute; top: -25px; right: -25px; font-size: 3rem; z-index: 20; transform: rotate(15deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
-        .k-star { position: absolute; bottom: -25px; left: -25px; font-size: 3rem; z-index: 20; transform: rotate(-10deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
-        .k-sparkle { position: absolute; bottom: -20px; right: -20px; font-size: 3rem; z-index: 20; transform: rotate(15deg); filter: drop-shadow(2px 4px 4px rgba(205,228,254,0.8)); pointer-events: none; user-select: none; }
+        /* ดัน Z-index ของอิโมจิให้สูงสุดทะลุกรอบและเส้นประ */
+        .k-bow { position: absolute; top: -35px; left: -30px; font-size: 4rem; z-index: 50; transform: rotate(-15deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
+        .k-heart { position: absolute; top: -25px; right: -25px; font-size: 3rem; z-index: 50; transform: rotate(15deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
+        .k-star { position: absolute; bottom: -25px; left: -25px; font-size: 3rem; z-index: 50; transform: rotate(-10deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
+        .k-sparkle { position: absolute; bottom: -20px; right: -20px; font-size: 3rem; z-index: 50; transform: rotate(15deg); filter: drop-shadow(2px 4px 4px rgba(205,228,254,0.8)); pointer-events: none; user-select: none; }
+
+        .k-tulip-left { position: absolute; bottom: -20px; left: -20px; font-size: 3.5rem; z-index: 50; transform: rotate(-15deg); filter: drop-shadow(2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
+        .k-tulip-right { position: absolute; bottom: -20px; right: -20px; font-size: 3.5rem; z-index: 50; transform: rotate(15deg) scaleX(-1); filter: drop-shadow(-2px 4px 4px rgba(253,195,209,0.8)); pointer-events: none; user-select: none; }
+        .k-cloud-left { position: absolute; top: -15px; left: -10px; font-size: 3.5rem; z-index: 50; filter: drop-shadow(2px 4px 4px rgba(255,255,255,0.9)); pointer-events: none; user-select: none; opacity: 0.9; }
+        .k-cloud-right { position: absolute; top: -10px; right: -15px; font-size: 4rem; z-index: 50; filter: drop-shadow(2px 4px 4px rgba(255,255,255,0.9)); pointer-events: none; user-select: none; opacity: 0.8; }
+
 
         .max-w-container { width: 100%; max-width: 480px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
         @media (min-width: 768px) { .max-w-container { max-width: 680px; } }
@@ -159,9 +169,9 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 92, 137, 0); }
         }
         @keyframes glowing-green {
-            0% { box-shadow: 0 0 0 0 rgba(0, 185, 0, 0.8); }
-            70% { box-shadow: 0 0 0 14px rgba(0, 185, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 185, 0, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 209, 59, 0.8); } /* สว่างขึ้น */
+            70% { box-shadow: 0 0 0 14px rgba(0, 209, 59, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 209, 59, 0); }
         }
 
         .pulse-glow { animation: glowing-light 2s infinite; }
@@ -210,6 +220,8 @@
             font-weight: 600;
             box-shadow: 0 6px 20px rgba(253, 195, 209, 0.5);
             line-height: 1.6;
+            position: relative;
+            z-index: 10;
         }
 
         .pkg-card {
@@ -304,11 +316,11 @@
             </div>
 
             <!-- 🖼️ แบนเนอร์หน้าร้าน (รองรับภาพและ GIF) -->
-            <div id="storefront-banner-container" class="mt-4 mb-2 hidden max-w-md mx-auto">
+            <div id="storefront-banner-container" class="mt-4 mb-2 hidden max-w-md mx-auto relative z-10">
                 <img id="storefront-banner-img" src="" alt="Storefront Banner" class="w-full h-auto max-h-56 rounded-3xl object-cover border-4 border-white shadow-cute-sm">
             </div>
 
-            <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-5 border-2 border-blush shadow-sm text-sm text-arcavia font-medium leading-relaxed max-w-md mx-auto text-center mt-2 mb-4">
+            <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-5 border-2 border-blush shadow-sm text-sm text-arcavia font-medium leading-relaxed max-w-md mx-auto text-center mt-2 mb-4 relative z-10">
                 <p class="font-bold text-strawberry mb-2 text-base">˚₊‧꒰ა ยินดีต้อนรับเข้าสู่ร้านยัยชบาค่าาา ໒꒱ ‧₊˚</p>
                 <p class="mb-2">ร้านเติมเกม & แอพพรีเมียมของยัยชบา มีเกมให้เลือกเติมมากกว่า 86 เกม พร้อมบริการเมลและแอพพรีเมียมอีกมากมาย</p>
                 <p class="mb-2">มีระบบเช็คคิว สามารถติดตามสถานะออเดอร์ได้ สอบถามสินค้าและเช็คสต๊อกก่อนสั่งซื้อได้เสมอน้า</p>
@@ -317,7 +329,7 @@
             </div>
         </div>
 
-        <div class="flex justify-center gap-4 sm:gap-6 pt-2 pb-2 fade-in" style="animation-delay: 0.05s;">
+        <div class="flex justify-center gap-4 sm:gap-6 pt-2 pb-2 fade-in relative z-20" style="animation-delay: 0.05s;">
             <button onclick="navigateTo('view-queue')" class="flex-1 max-w-[150px] py-4 rounded-3xl text-sm font-bold bg-gradient-to-b from-peach to-strawberry text-white shadow-cute hover:-translate-y-1 hover:scale-105 transition-all duration-300 border-2 border-white flex flex-col items-center justify-center gap-1.5 group pulse-glow">
                 <i class="fa-solid fa-clipboard-list text-3xl mb-1 drop-shadow-sm group-hover:animate-bounce"></i>
                 <span>เช็กคิวของเบ้บ</span>
@@ -328,12 +340,13 @@
             </button>
         </div>
 
-        <!-- 🛒 สินค้าแนะนำ / โปรโมชั่น (แก้ไขได้จากหลังบ้าน) -->
-        <div class="kawaii-panel !border-strawberry/30 !bg-white/80 fade-in" style="animation-delay: 0.1s;">
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-peach to-strawberry text-white px-6 py-1.5 rounded-full font-bold text-sm shadow-md border-2 border-white z-20 flex items-center gap-2 whitespace-nowrap">
+        <!-- 🛒 สินค้าแนะนำ / โปรโมชั่น -->
+        <div class="kawaii-panel !border-strawberry/30 !bg-white/80 fade-in mt-8" style="animation-delay: 0.1s;">
+            <!-- ดัน z-index ให้ป้ายลอยทะลุขอบขึ้นมา -->
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-peach to-strawberry text-white px-6 py-1.5 rounded-full font-bold text-sm shadow-md border-2 border-white z-[60] flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-crown text-lemon"></i> สินค้าแนะนำ / โปรโมชั่น 🛒
             </div>
-            <div class="relative z-10 mt-4 text-left">
+            <div class="relative z-20 mt-4 text-left">
                 <div class="bg-white/60 p-4 rounded-2xl border border-blush shadow-sm mb-4 space-y-3">
                     <div>
                         <p class="font-bold text-strawberry mb-1"><i class="fa-solid fa-star text-peach"></i> สินค้าแนะนำ</p>
@@ -352,34 +365,34 @@
         </div>
 
         <!-- หมวดหมู่เกม -->
-        <div class="fade-in" style="animation-delay: 0.2s;">
+        <div class="fade-in relative z-10" style="animation-delay: 0.2s;">
             <h3 class="font-bold text-xl text-arcavia mb-2 flex items-center gap-2 pl-2 text-outline-white">
                 <span class="text-2xl animate-bounce">🎮</span> หมวดเติมเกม
             </h3>
             <div class="category-subtitle mb-4">
                 <i class="fa-solid fa-gamepad text-strawberry mr-1.5"></i> หมวดเติมเกม : FreeFive & ROV & Heartopia และเกมอื่นๆอีก 84เกม
             </div>
-            <div id="dynamic-games-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div id="dynamic-games-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 relative z-10">
                 <p class="text-sm text-thimble font-medium col-span-2">กำลังโหลดเรทราคา...</p>
             </div>
         </div>
 
         <!-- หมวดหมู่แอพพรีเมียม -->
-        <div class="fade-in mt-6" style="animation-delay: 0.3s;">
+        <div class="fade-in mt-6 relative z-10" style="animation-delay: 0.3s;">
             <h3 class="font-bold text-xl text-arcavia mb-2 flex items-center gap-2 pl-2 text-outline-white">
                 <span class="text-2xl animate-float">🍏</span> แอพพรีเมียม
             </h3>
             <div class="category-subtitle mb-4 leading-relaxed">
                 <i class="fa-solid fa-mobile-screen-button text-strawberry mr-1.5"></i> หมวดแอพพรีเมียม : เน็ตฟิกซ์ & ยูทูป Wetv & Viu & IQIYI & Prime & Mono max CH 3+ & One D & Canva & BiliBili & Hbo max & Youku & ดิสนีย์
             </div>
-            <div id="dynamic-apps-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div id="dynamic-apps-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 relative z-10">
             </div>
         </div>
 
-        <!-- 🥐 วิธีสั่งซื้อกับยัยชบา (แก้ไขได้จากหลังบ้าน) -->
+        <!-- 🥐 วิธีสั่งซื้อกับยัยชบา -->
         <div class="kawaii-panel panel-purple fade-in mt-8" style="animation-delay: 0.4s;">
             <div class="k-sparkle">✨</div>
-            <div class="relative z-10">
+            <div class="relative z-20">
                 <h3 class="font-bold text-lg text-arcavia mb-4 text-center">🥐 วิธีสั่งซื้อกับยัยชบา 🥐</h3>
                 
                 <div id="display-howto-text" class="space-y-3">
@@ -400,17 +413,19 @@
         </div>
 
         <div class="kawaii-panel panel-blue fade-in text-center" style="animation-delay: 0.45s;">
-            <h3 class="font-bold text-lg text-arcavia mb-3">ติดต่อยัยชบา / ช่องทางสั่งซื้อ 📞</h3>
-            <p class="text-sm font-bold text-strawberry mb-2 bg-white/80 inline-block px-4 py-1.5 rounded-full border border-precious shadow-sm">
-                ❪ ‎𓎭 dm line @868wyuzx 𓈒 ❀ ❫
-            </p>
-            <p class="text-xs font-medium text-thimble mb-4">‎✯ สั่งของกับแอดชบา ✯<br>(ว่างส่ง 07:30 - 03:00 ไม่มีวันหยุด)</p>
-            <a href="https://lin.ee/dmlNukC" target="_blank" class="inline-block w-full sm:w-auto bg-[#00B900] text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-green-500/40 hover:-translate-y-1 transition-all interactive-btn border-2 border-white pulse-green">
-                <i class="fa-brands fa-line"></i> สั่งซื้อ / สอบถามที่ LINE
-            </a>
+            <div class="relative z-20">
+                <h3 class="font-bold text-lg text-arcavia mb-3">ติดต่อยัยชบา / ช่องทางสั่งซื้อ 📞</h3>
+                <p class="text-sm font-bold text-strawberry mb-2 bg-white/80 inline-block px-4 py-1.5 rounded-full border border-precious shadow-sm">
+                    ❪ ‎𓎭 dm line @868wyuzx 𓈒 ❀ ❫
+                </p>
+                <p class="text-xs font-medium text-thimble mb-4">‎✯ สั่งของกับแอดชบา ✯<br>(ว่างส่ง 07:30 - 03:00 ไม่มีวันหยุด)</p>
+                <a href="https://lin.ee/dmlNukC" target="_blank" class="inline-block w-full sm:w-auto bg-[#00D13B] text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-green-400/40 hover:-translate-y-1 transition-all interactive-btn border-2 border-white pulse-green">
+                    <i class="fa-brands fa-line"></i> สั่งซื้อ / สอบถามที่ LINE
+                </a>
+            </div>
         </div>
 
-        <div class="text-center py-6 fade-in font-medium text-arcavia" style="animation-delay: 0.5s;">
+        <div class="text-center py-6 fade-in font-medium text-arcavia relative z-10" style="animation-delay: 0.5s;">
             <p class="font-bold text-lg mb-1 drop-shadow-sm">𐚁 ֹ ִ ‎𝐶ℎ𝑎𝑏𝑎 𝑆ℎ𝑜𝑟𝑡𝑐𝑎𝑘𝑒  ୧ ֹ ִִ</p>
             <p class="text-sm mb-3 text-thimble font-bold">เปิดร้านแล้วค้าบบ ♡ ˎˊ˗ ˙ . ꒷  .</p>
             <p class="text-sm font-bold text-strawberry bg-white/80 inline-block px-6 py-2.5 rounded-full border-2 border-precious shadow-sm mb-3">
@@ -440,10 +455,11 @@
         </div>
 
         <div class="kawaii-panel fade-in" style="animation-delay: 0.1s;">
-            <div class="absolute -top-4 left-4 bg-strawberry text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md border-2 border-white z-20">🍓</div>
-            <h3 class="font-bold text-lg text-arcavia mb-3 ml-2">เลือกแพ็กเกจที่ต้องการ</h3>
+            <!-- เปลี่ยนจากสตอเบอรี่เป็นแพนเค้ก 🥞 -->
+            <div class="absolute -top-4 left-4 bg-strawberry text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md border-2 border-white z-[60]">🥞</div>
+            <h3 class="font-bold text-lg text-arcavia mb-3 ml-2 relative z-20">เลือกแพ็กเกจที่ต้องการ</h3>
             
-            <div id="detail-packages-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[380px] overflow-y-auto custom-scrollbar pr-1 pb-2">
+            <div id="detail-packages-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[380px] overflow-y-auto custom-scrollbar pr-1 pb-2 relative z-20">
             </div>
         </div>
 
@@ -459,25 +475,30 @@
                 </div>
                 <div class="flex justify-between items-center text-sm">
                     <span class="text-thimble font-medium">ยอดรวม:</span>
-                    <span class="font-bold text-strawberry text-xl animate-bounce" id="summary-pkg-price">฿0.00</span>
+                    <!-- เอาแอนิเมชันราคาเด้งออก -->
+                    <span class="font-bold text-strawberry text-xl" id="summary-pkg-price">฿0.00</span>
                 </div>
             </div>
 
-            <button onclick="confirmOrderLine()" id="btn-confirm-order" disabled class="w-full bg-[#00B900] text-white rounded-2xl py-3.5 font-bold shadow-lg shadow-green-500/30 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-base border-2 border-white disabled:opacity-50 disabled:cursor-not-allowed pulse-green">
+            <!-- เปลี่ยนสีปุ่ม LINE ให้สว่างขึ้น -->
+            <button onclick="confirmOrderLine()" id="btn-confirm-order" disabled class="w-full bg-[#00D13B] text-white rounded-2xl py-3.5 font-bold shadow-lg shadow-green-400/30 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-base border-2 border-white disabled:opacity-50 disabled:cursor-not-allowed pulse-green">
                 <i class="fa-brands fa-line text-xl"></i> สั่งซื้อกับยัยชบาที่ LINE
             </button>
         </div>
     </main>
 
-    <a href="https://lin.ee/dmlNukC" target="_blank" class="floating-line bg-[#00B900] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform animate-bounce border-2 border-white z-50 pulse-green">
+    <a href="https://lin.ee/dmlNukC" target="_blank" class="floating-line bg-[#00D13B] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform animate-bounce border-2 border-white z-50 pulse-green">
         <i class="fa-brands fa-line"></i>
     </a>
 
     <!-- 🍓 หน้าร้านเชกคิว & รีวิว 🍓 -->
     <main id="view-queue" class="view-section max-w-container p-4 space-y-6 pt-6 hidden relative z-10">
-        <div class="kawaii-panel text-center relative overflow-hidden group hover:shadow-lg transition-all duration-300 fade-in">
-            <div class="k-bow">🎀</div><div class="k-heart">🩷</div><div class="k-star">⭐</div>
-            <div class="relative z-10">
+        <div class="kawaii-panel text-center relative group hover:shadow-lg transition-all duration-300 fade-in">
+            <!-- เปลี่ยนตกแต่งเป็น ก้อนเมฆบน ทิวลิปล่าง -->
+            <div class="k-cloud-left">☁️</div><div class="k-cloud-right">☁️</div>
+            <div class="k-tulip-left">🌷</div><div class="k-tulip-right">🌷</div>
+            
+            <div class="relative z-20">
                 <div class="absolute top-0 right-0 flex items-center gap-1.5 bg-blush px-2.5 py-1 rounded-full border border-precious shadow-sm z-10">
                     <span class="status-dot dot-live"></span>
                     <span class="text-[10px] font-bold text-strawberry tracking-widest">LIVE</span>
@@ -494,8 +515,10 @@
         </div>
 
         <div class="kawaii-panel text-center fade-in panel-blue" style="animation-delay: 0.1s;">
-            <div class="k-sparkle">🪼</div>
-            <div class="relative z-10">
+            <!-- เปลี่ยนจากแมงกะพรุน เป็นวาฬกับคลื่น -->
+            <div class="k-sparkle" style="font-size: 2.5rem; bottom: -15px;">🐋🌊</div>
+            
+            <div class="relative z-20">
                 <p class="text-strawberry text-sm font-bold mb-1 mt-2">꒰⋆ 𐙚 ̊ ตอนนี้ยัยชบากำลังดูแลเบ้บคิวไหนอยู่น้า 𐙚 ⋆ ꒱</p>
                 <p class="text-thimble text-xs mb-5 font-medium">♡ กรอกเลขคิวของเบ้บด้านล่างได้เลยค่าา ᯓᡣ𐭩˚</p>
                 
@@ -508,10 +531,6 @@
                 <button onclick="checkMyQueue()" class="mt-5 w-full max-w-xs mx-auto bg-gradient-to-r from-blue-300 to-babyblue text-blue-800 rounded-full py-3.5 font-bold shadow-lg shadow-blue-200 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-base relative z-20 border-2 border-white pulse-glow">
                     เช็กคิวกับยัยชบา 
                 </button>
-
-                <div id="queue-admin-display-container" class="mt-4 hidden text-center">
-                    <img id="queue-admin-img-display" src="" class="w-auto h-auto max-h-56 rounded-2xl object-contain border-2 border-precious shadow-sm mx-auto relative z-10">
-                </div>
             </div>
         </div>
 
@@ -547,11 +566,10 @@
     <main id="view-review" class="view-section max-w-container p-4 space-y-6 pt-6 hidden relative z-10">
         <div class="kawaii-panel text-center fade-in panel-purple">
             <div class="k-bow">🎀</div><div class="k-heart">🩷</div><div class="k-star">⭐</div>
-            <div class="relative z-10 mt-2">
+            <div class="relative z-20 mt-2">
                 <h3 class="font-bold text-strawberry text-lg mb-1 relative z-10">เครดิตจากลูกค้าที่น่ารักของยัยชบา~</h3>
                 <p class="text-xs text-thimble mb-4 font-medium relative z-10">เป็นกำลังใจเล็กๆ ให้ร้านเราน้า</p>
                 
-                <!-- 🖼️ แบนเนอร์หน้า Plus One (รองรับรูป/GIF) -->
                 <div id="plusone-banner-container" class="mb-4 hidden">
                     <img id="plusone-banner-img" src="" alt="PlusOne Banner" class="w-full h-auto max-h-48 rounded-2xl object-cover border-4 border-white shadow-sm mx-auto">
                 </div>
@@ -568,16 +586,13 @@
                     <i class="fa-solid fa-heart"></i> Plus One ให้ยัยชบา
                 </button>
 
-                <div id="credit-admin-display-container" class="mt-4 hidden relative z-10 text-center">
-                    <img id="credit-admin-img-display" src="" class="w-auto h-auto max-h-56 rounded-2xl object-contain border-2 border-precious shadow-sm mx-auto">
-                </div>
                 <p id="plus-one-thank-you" class="text-sm text-strawberry mt-4 hidden whitespace-pre-line font-medium bg-blush/60 p-3 rounded-xl border border-precious relative z-10"></p>
             </div>
         </div>
 
         <div class="kawaii-panel fade-in" style="animation-delay: 0.1s;">
             <div class="k-bow">🎀</div><div class="k-heart">🩷</div><div class="k-star">⭐</div>
-            <div class="relative z-10 mt-2">
+            <div class="relative z-20 mt-2">
                 <h3 class="font-bold text-lg text-arcavia mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-comment-dots text-strawberry"></i> รีวิวจากลูกค้าที่น่ารัก~
                 </h3>
@@ -621,9 +636,9 @@
     </main>
 
     <main id="view-login" class="view-section max-w-container p-4 pt-20 hidden relative z-10 fade-in text-center">
-        <div class="kawaii-panel text-center relative overflow-hidden">
+        <div class="kawaii-panel text-center relative">
             <div class="k-bow">🎀</div><div class="k-heart">🩷</div><div class="k-star">⭐</div>
-            <div class="relative z-10 mt-4">
+            <div class="relative z-20 mt-4">
                 <h2 class="text-2xl font-bold text-arcavia mb-2">เข้าสู่ระบบหลังบ้าน</h2>
                 <p class="text-sm text-thimble mb-6 font-medium">พื้นที่สำหรับยัยชบาเท่านั้นนะค้า</p>
                 <input type="email" id="admin-email" placeholder="อีเมล" class="w-full bg-white border-2 border-precious rounded-full py-3 px-5 text-center focus:outline-none focus:border-strawberry focus:ring-4 focus:ring-blush transition-all font-bold text-arcavia text-base mb-3 shadow-inner">
@@ -633,7 +648,7 @@
         </div>
     </main>
 
-    <!-- 🍓 หน้าหลังบ้าน (Admin View) - จัดสัดส่วนใหม่ให้เป็นระเบียบและใช้งานง่าย 🍓 -->
+    <!-- 🍓 หน้าหลังบ้าน (Admin View) 🍓 -->
     <main id="view-admin" class="view-section max-w-container p-4 space-y-6 pt-6 hidden relative z-10">
         <div class="flex items-center justify-between bg-white/80 backdrop-blur px-5 py-3 rounded-2xl border border-precious shadow-sm">
             <h2 class="text-xl sm:text-2xl font-bold text-arcavia flex items-center gap-2"><i class="fa-solid fa-lock text-precious"></i> หลังบ้าน</h2>
@@ -652,11 +667,10 @@
             <div class="bg-white/90 p-4 rounded-3xl border-4 border-blush text-center"><div class="text-peach font-bold">รีวิวทั้งหมด</div><div class="text-3xl font-bold text-arcavia" id="admin-stat-reviews">...</div></div>
         </div>
 
-        <!-- ⚙️ แทร็บที่ 1: ตั้งค่าหน้าเว็บ (ข้อความ, แบนเนอร์, โลโก้) -->
         <div id="admin-tab-settings" class="admin-sub-section space-y-6 block">
             <div class="kawaii-panel space-y-5 fade-in">
-                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2"><i class="fa-solid fa-sliders text-strawberry"></i> 1. ตั้งค่าข้อความต้อนรับ & คำโปรย</h3>
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3">
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 relative z-20"><i class="fa-solid fa-sliders text-strawberry"></i> 1. ตั้งค่าข้อความต้อนรับ & คำโปรย</h3>
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3 relative z-20">
                     <div>
                         <label class="block font-bold text-sm text-arcavia mb-1">คำโปรยหน้าร้าน (Tagline)</label>
                         <input type="text" id="admin-shop-tagline" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium">
@@ -664,8 +678,8 @@
                     <button onclick="adminUpdateTagline(this)" class="bg-peach text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกคำโปรย</button>
                 </div>
 
-                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2"><i class="fa-solid fa-star text-strawberry"></i> 2. ตั้งค่าสินค้าแนะนำ & โปรโมชั่น</h3>
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3">
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2 relative z-20"><i class="fa-solid fa-star text-strawberry"></i> 2. ตั้งค่าสินค้าแนะนำ & โปรโมชั่น</h3>
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3 relative z-20">
                     <div>
                         <label class="block font-bold text-sm text-strawberry mb-1">สินค้าแนะนำ (พิมพ์ข้อความแต่ละบรรทัด)</label>
                         <textarea id="admin-recommended-text" rows="3" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="เช่น ෆ เมล~&#10;ෆ แพ็คเติมเกม FF & ROV"></textarea>
@@ -677,8 +691,8 @@
                     <button onclick="adminUpdatePromoAndRec(this)" class="bg-strawberry text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกสินค้าแนะนำ & โปรโมชั่น</button>
                 </div>
 
-                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2"><i class="fa-solid fa-bag-shopping text-strawberry"></i> 3. ตั้งค่าวิธีการสั่งซื้อ</h3>
-                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3">
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2 relative z-20"><i class="fa-solid fa-bag-shopping text-strawberry"></i> 3. ตั้งค่าวิธีการสั่งซื้อ</h3>
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3 relative z-20">
                     <div>
                         <label class="block font-bold text-sm text-arcavia mb-1">ขั้นตอนวิธีสั่งซื้อ (ข้อความ)</label>
                         <textarea id="admin-howto-text" rows="5" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="ระบุขั้นตอนการสั่งซื้อ..."></textarea>
@@ -686,8 +700,8 @@
                     <button onclick="adminUpdateHowTo(this)" class="bg-peach text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกวิธีสั่งซื้อ</button>
                 </div>
 
-                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2"><i class="fa-solid fa-image text-strawberry"></i> 4. รูปภาพ / แบนเนอร์ / โลโก้</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <h3 class="font-bold text-lg text-arcavia flex items-center gap-2 border-b border-blush pb-2 pt-2 relative z-20"><i class="fa-solid fa-image text-strawberry"></i> 4. รูปภาพ / แบนเนอร์ / โลโก้</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-20">
                     <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush">
                         <div class="flex justify-between items-center mb-2">
                             <label class="font-bold text-xs text-arcavia">แบนเนอร์หน้าร้าน (รองรับภาพ/GIF)</label>
@@ -718,25 +732,24 @@
             </div>
         </div>
 
-        <!-- 📋 แท็บที่ 2: จัดการคิว -->
         <div id="admin-tab-queue" class="admin-sub-section space-y-6 hidden">
             <div class="kawaii-panel fade-in">
-                <h3 class="font-bold text-lg mb-4 text-arcavia">จัดการคิว</h3>
-                <div class="bg-white/80 rounded-2xl p-4 mb-5 flex flex-wrap items-end gap-3 border border-blush">
+                <h3 class="font-bold text-lg mb-4 text-arcavia relative z-20">จัดการคิว</h3>
+                <div class="bg-white/80 rounded-2xl p-4 mb-5 flex flex-wrap items-end gap-3 border border-blush relative z-20">
                     <div class="flex-1 min-w-[150px]">
                         <label class="block text-xs font-bold mb-1">เพิ่มคิวใหม่</label>
                         <input type="text" id="admin-new-q" placeholder="#026" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-bold text-arcavia">
                     </div>
                     <button onclick="adminAddQueue(this)" class="bg-peach text-white rounded-xl px-5 py-2.5 text-sm font-bold">+ เพิ่มคิว</button>
                 </div>
-                <div class="bg-white/80 rounded-2xl p-4 mb-5 flex flex-wrap items-end gap-3 border-2 border-strawberry shadow-sm">
+                <div class="bg-white/80 rounded-2xl p-4 mb-5 flex flex-wrap items-end gap-3 border-2 border-strawberry shadow-sm relative z-20">
                     <div class="flex-1 min-w-[150px]">
                         <label class="block text-xs font-bold text-strawberry mb-1">คิวปัจจุบันที่กำลังทำ</label>
                         <input type="text" id="admin-current-q-input" class="w-full bg-blush/30 border border-blush rounded-xl py-2 px-3 text-sm font-bold text-arcavia">
                     </div>
                     <button onclick="adminSetCurrentQueue(this)" class="bg-strawberry text-white rounded-xl px-5 py-2.5 text-sm font-bold shadow-md">บันทึก</button>
                 </div>
-                <div class="overflow-x-auto rounded-2xl border-2 border-blush bg-white/95">
+                <div class="overflow-x-auto rounded-2xl border-2 border-blush bg-white/95 relative z-20">
                     <table class="w-full text-left text-sm whitespace-nowrap">
                         <thead class="bg-blush/60 text-thimble font-bold border-b-2 border-blush"><tr><th class="py-3 px-4">เลขคิว</th><th class="py-3 px-4">สถานะ</th><th class="py-3 px-4 text-right">จัดการ</th></tr></thead>
                         <tbody id="admin-queue-list" class="divide-y divide-blush font-medium text-arcavia"><tr><td colspan="3" class="text-center py-4 text-thimble">กำลังโหลด...</td></tr></tbody>
@@ -745,20 +758,18 @@
             </div>
         </div>
 
-        <!-- 💬 แท็บที่ 3: จัดการรีวิว -->
         <div id="admin-tab-review" class="admin-sub-section space-y-6 hidden">
             <div class="kawaii-panel fade-in">
-                <h3 class="font-bold text-lg mb-4 text-arcavia">จัดการรีวิว</h3>
-                <div class="space-y-4" id="admin-review-list"><p class="text-center py-4 font-bold">กำลังโหลด...</p></div>
+                <h3 class="font-bold text-lg mb-4 text-arcavia relative z-20">จัดการรีวิว</h3>
+                <div class="space-y-4 relative z-20" id="admin-review-list"><p class="text-center py-4 font-bold">กำลังโหลด...</p></div>
             </div>
         </div>
 
-        <!-- 🎮 แท็บที่ 4: จัดการเรทราคา -->
         <div id="admin-tab-product" class="admin-sub-section space-y-6 hidden">
             <div class="kawaii-panel fade-in">
-                <h3 class="font-bold text-lg mb-4 text-arcavia">จัดการสินค้าและเรทราคา</h3>
+                <h3 class="font-bold text-lg mb-4 text-arcavia relative z-20">จัดการสินค้าและเรทราคา</h3>
                 
-                <div class="bg-white/80 rounded-2xl p-4 mb-5 border-2 border-precious shadow-sm relative z-10">
+                <div class="bg-white/80 rounded-2xl p-4 mb-5 border-2 border-precious shadow-sm relative z-20">
                     <h4 class="font-bold text-sm text-strawberry mb-3" id="product-form-title">+ เพิ่มสินค้าใหม่</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                         <div>
@@ -807,7 +818,7 @@
                     </div>
                 </div>
 
-                <div class="space-y-3" id="admin-products-list">
+                <div class="space-y-3 relative z-20" id="admin-products-list">
                     <p class="text-center py-4 text-sm font-bold text-thimble">กำลังโหลดข้อมูลสินค้า...</p>
                 </div>
             </div>
@@ -852,7 +863,7 @@
 
         const statusConfig = {
             'wait': { label: 'รอคิว', color: 'text-thimble', msg: 'ෆ_เบ้บรอยัยชบาแป๊บนึงน้าา\nตอนนี้ออเดอร์ของเบ้บอยู่ในคิวค่า_ෆ' },
-            'processing': { label: 'กำลังทำ', color: 'text-strawberry', msg: 'ถึงคิวของเบ้บแล้วค่าา!\nยัยชบากำลังจัดการให้เลยน้า 🍓' },
+            'processing': { label: 'กำลังทำ', color: 'text-strawberry', msg: 'ถึงคิวของเบ้บแล้วค่าา!\nยัยชบากำลังจัดการให้เลยน้า 🥐' }, // เปลี่ยนสตอเบอรี่เป็นครัวซอง
             'completed': { label: 'เสร็จแล้ว', color: 'text-green-600', msg: 'เสร็จเรียบร้อยแล้วค่าา\nขอบคุณที่รอยัยชบนะค้าา ෆ' },
             'issue': { label: 'ติดปัญหา', color: 'text-white', msg: 'แงง ดูเหมือนออเดอร์จะมีปัญหานิดหน่อยคับ\nรบกวนเบ้บทักหายัยชบาทีน้า 🥺' }
         };
