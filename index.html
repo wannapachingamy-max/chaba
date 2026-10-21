@@ -351,13 +351,13 @@
                     <div>
                         <p class="font-bold text-strawberry mb-1"><i class="fa-solid fa-star text-peach"></i> สินค้าแนะนำ</p>
                         <div id="display-recommended-text" class="text-sm text-arcavia pl-5 font-medium whitespace-pre-line">
-                            ෆ เมล~<br>ෆ แพ็คเติมเกม FF & ROV และเกมอื่นๆอีก 84เกม & แอพพรีี่ยม~
+                            ...
                         </div>
                     </div>
                     <div class="pt-2 border-t border-blush/50">
                         <p class="font-bold text-strawberry mb-1"><i class="fa-solid fa-bullhorn text-peach"></i> โปรโมชั่น</p>
                         <div id="display-promotion-text" class="text-sm text-thimble pl-5 font-medium whitespace-pre-line">
-                            ෆ ตอนนี้ยังไม่มีโปรโมชั่นนะคะ ถ้ามีเมื่อไหร่ยัยชบาจะแจ้งทันทีผ่านหน้าเว็ปน้า~~ ෆ
+                            ...
                         </div>
                     </div>
                 </div>
@@ -396,18 +396,7 @@
                 <h3 class="font-bold text-lg text-arcavia mb-4 text-center">🥐 วิธีสั่งซื้อกับยัยชบา 🥐</h3>
                 
                 <div id="display-howto-text" class="space-y-3">
-                    <div class="flex items-start gap-3 bg-white/60 p-3 rounded-2xl border border-lavender">
-                        <div class="w-8 h-8 rounded-full bg-lavender text-purple-700 font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm">1</div>
-                        <p class="text-sm font-medium text-arcavia leading-relaxed">แจ้งสินค้าที่ลูกค้าสนใจ</p>
-                    </div>
-                    <div class="flex items-start gap-3 bg-white/60 p-3 rounded-2xl border border-blush">
-                        <div class="w-8 h-8 rounded-full bg-blush text-strawberry font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm">2</div>
-                        <p class="text-sm font-medium text-arcavia leading-relaxed">รอยัยชบาเช็คสต๊อก แล้วคอนเฟิร์ม order<br><span class="text-xs font-bold text-strawberry">( ไม่โอนก่อนคอนเฟิร์มออเดอร์นะคะ ไม่โอนคืนทุกกรณี )</span></p>
-                    </div>
-                    <div class="flex items-start gap-3 bg-white/60 p-3 rounded-2xl border border-babyblue">
-                        <div class="w-8 h-8 rounded-full bg-babyblue text-blue-700 font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm">3</div>
-                        <p class="text-sm font-medium text-arcavia leading-relaxed">ยัยชบาแจ้งราคาสินค้า<br><span class="text-xs font-bold text-blue-600">( โอนเงิน = ยอมรับ สามารถเช็คคิวได้เลยนะคะ )</span></p>
-                    </div>
+                    <!-- กล่องข้อความสั่งซื้อจะถูกสร้างด้วย JS ตรงนี้ -->
                 </div>
             </div>
         </div>
@@ -695,7 +684,7 @@
                 <div class="bg-white/80 p-4 rounded-2xl border-2 border-blush space-y-3 relative z-20">
                     <div>
                         <label class="block font-bold text-sm text-arcavia mb-1">ขั้นตอนวิธีสั่งซื้อ (ข้อความ)</label>
-                        <textarea id="admin-howto-text" rows="5" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="ระบุขั้นตอนการสั่งซื้อ..."></textarea>
+                        <textarea id="admin-howto-text" rows="5" class="w-full bg-white border border-precious rounded-xl py-2 px-3 text-sm font-medium text-arcavia" placeholder="ระบุขั้นตอนการสั่งซื้อ แต่ละบรรทัดจะเป็น 1 ข้อ"></textarea>
                     </div>
                     <button onclick="adminUpdateHowTo(this)" class="bg-peach text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm interactive-btn">บันทึกวิธีสั่งซื้อ</button>
                 </div>
@@ -986,9 +975,31 @@
             document.getElementById('display-recommended-text').innerHTML = escapeHtml(state.recommendedText).replace(/\n/g, '<br>');
             document.getElementById('display-promotion-text').innerHTML = escapeHtml(state.promotionText).replace(/\n/g, '<br>');
             
-            if(state.howtoText && state.howtoText.trim() !== '') {
-                document.getElementById('display-howto-text').innerHTML = escapeHtml(state.howtoText).replace(/\n/g, '<br>');
+            // --- Update How to Order section dynamically ---
+            const howtoContainer = document.getElementById('display-howto-text');
+            let textToRender = state.howtoText;
+            if (!textToRender || textToRender.trim() === '') {
+                textToRender = "แจ้งสินค้าที่ลูกค้าสนใจ\nรอยัยชบาเช็คสต๊อก แล้วคอนเฟิร์ม order (ไม่โอนก่อนคอนเฟิร์มออเดอร์นะคะ ไม่โอนคืนทุกกรณี)\nยัยชบาแจ้งราคาสินค้า (โอนเงิน = ยอมรับ สามารถเช็คคิวได้เลยนะคะ)";
             }
+
+            const lines = textToRender.split('\n').filter(line => line.trim() !== '');
+            const colorThemes = [
+                { bg: 'bg-lavender', text: 'text-purple-700', border: 'border-lavender' },
+                { bg: 'bg-blush', text: 'text-strawberry', border: 'border-blush' },
+                { bg: 'bg-babyblue', text: 'text-blue-700', border: 'border-babyblue' },
+                { bg: 'bg-lemon', text: 'text-yellow-700', border: 'border-lemon' },
+                { bg: 'bg-precious', text: 'text-arcavia', border: 'border-precious' }
+            ];
+
+            howtoContainer.innerHTML = lines.map((line, index) => {
+                const theme = colorThemes[index % colorThemes.length];
+                return `
+                <div class="flex items-start gap-3 bg-white/60 p-3 rounded-2xl border ${theme.border}">
+                    <div class="w-8 h-8 rounded-full ${theme.bg} ${theme.text} font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm">${index + 1}</div>
+                    <p class="text-sm font-medium text-arcavia leading-relaxed whitespace-pre-line">${escapeHtml(line.trim())}</p>
+                </div>`;
+            }).join('');
+            // -----------------------------------------------
 
             if(document.getElementById('admin-shop-tagline')) {
                 document.getElementById('admin-shop-tagline').value = state.shopTagline;
